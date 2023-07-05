@@ -37,5 +37,7 @@ class TestCookie:
 
     @pytest.mark.parametrize("data", data)
     def test_user_agent(self, data):
-        response = requests.get("https://playground.learnqa.ru/ajax/api/user_agent_check", headers={"User-Agent": data["user_agent"]})
-        print(response.text)
+        response = requests.get("https://playground.learnqa.ru/ajax/api/user_agent_check", headers={"User-Agent": data['user_agent']})
+        assert response.json()["platform"] == data["platform"], "Platform is not correct"
+        assert response.json()["browser"] == data["browser"], "Browser is not correct"
+        assert response.json()["device"] == data["device"], "Device is not correct"
